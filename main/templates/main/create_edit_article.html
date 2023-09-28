@@ -1,0 +1,16 @@
+{% extends './base.html' %}
+
+{% block title %}Talk And Talk{% endblock %}
+
+{% block content %}
+<div class="create-article">
+    {% if user.is_authenticated %}
+        <form method="post">
+            <h3>{{ title}}</h3>
+            {% csrf_token %}
+            <input type="submit" value="Create" class="btn">
+            {{ form.as_p }}
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends './base.html' %}
+
+{% block title %}Talk And Talk{% endblock %}
+
+{% block content %}
+<div class="profile">
+    {% if user.is_authenticated %}
+        <div class="profile_main-information">
+            {{ user.username }}
+            <div class="profile_main-information_sign-out">
+                <a href="{% url 'sign_out' %}">Sign Out</a>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="profile_page">
+        {% for article in articles %}
+            <div class="profile_page_information"> 
+                {{ article.title }}
+
+                {% if article.author == user %}
+                <div class="profile_page_information_edit">
+                    <a href="{% url 'edit_article' article.slug %}">Edit</a>
+                </div>
+                {% endif %}
+
+                <br><br>
+
+                {{ article.content|safe|truncatechars:100 }}
+
+                <div class="profile_page_information_read-more">
+                    <a href="{{ article.get_absolute_url }}">Read More</a>            
+                </div>
+                <div class="profile_page_information_viewing">
+                    Views: {{ article.viewing }}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+    {% else %}
+        <h1>You are not logged in to your account</h1>
+        <a href="{% url 'sign_in' %}">Sign In</a>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}Talk And Talk{% endblock %}
+
+{% block content %}
+    <div class="index">
+        <div class="under-nav">
+            <h3>TALK AND TALK</h3><br> —— a platform for writing your articles for any person
+            <br>———————————————————————————————————————————————————
+        </div>
+        <div class="advantage">
+            <h3>ADVANTAGES</h3>
+            <ul>
+                <li><img src="{% static 'img/ease.svg' %}" alt="">
+                    Ease of use: <br>
+                    We have developed a simple and intuitive interface that makes the process of creating articles fast and convenient for everyone.</li>
+                <li><img src="{% static 'img/free.svg' %}" alt="">
+                    Free: <br>
+                    We strive to enable every user to freely use all the features and tools available on the platform without having to pay any additional fees or subscriptions.
+                </li>
+                <li><img src="{% static 'img/fast.svg' %}" alt=""><br>
+                    Fast: <br>
+                    We provide tools and functions that will help you write an article effectively, saving time and effort.
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

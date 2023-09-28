@@ -1,0 +1,2 @@
+# TalkAndTalk
+django project

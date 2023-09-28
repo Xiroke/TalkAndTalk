@@ -1,0 +1,26 @@
+{% extends './base.html' %}
+
+{% block title %}Talk And Talk{% endblock %}
+
+{% block content %}
+    <div class="article">
+        <div class="container">
+            <h1>Article</h1>
+            {{ article.author }}
+            {{ article.title }}
+            {{ article.content|safe }}
+            <h3>Coments</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Send">
+            </form>
+            {% for comment in comments %}
+                <div class="article_comment">
+                    {{ comment.author}}:
+                    {{ comment.text }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends './base.html' %}
+
+{% block title %}Talk And Talk{% endblock %}
+
+{% block content %}
+<div class="articles">
+    <div class="articles_create">
+        <a href="{% url 'create_article' %}">Create Article</a>
+    </div>
+    <div class="line"></div>
+    <div class="articles_page">
+        {% for article in articles %}
+            <div class="articles_page_information">
+                
+                {{ article.title }}
+                <div class="articles_page_information_author">
+                    <a href="{% url 'profile' article.author.username %}">{{ article.author.username}}</a>
+                    
+                </div>
+                <a href="{{ article.category.get_absolute_url }}">{{ article.category.title }}</a>
+                <br><br>
+
+                <div class="articles_page_information_read-more">
+                    <a href="{{ article.get_absolute_url }}">Read More</a>            
+                </div><br>
+
+                <div class="articles_page_information_viewing">
+                    Views: {{ article.total_views }}
+                </div>
+
+                
+                    
+            
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
