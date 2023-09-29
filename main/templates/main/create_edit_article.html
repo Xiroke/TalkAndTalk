@@ -5,12 +5,16 @@
 {% block content %}
 <div class="create-article">
     {% if user.is_authenticated %}
+        {% if user.can_manage_article %}
         <form method="post">
             <h3>{{ title}}</h3>
             {% csrf_token %}
             <input type="submit" value="Create" class="btn">
             {{ form.as_p }}
         </form>
+        {% else %}
+            <h3>You don't have permission to create article. Please write admin.</h3>
+        {% endif %}
     {% endif %}
 </div>
 {% endblock %}

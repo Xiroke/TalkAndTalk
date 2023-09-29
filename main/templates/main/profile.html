@@ -22,16 +22,21 @@
                     <a href="{% url 'edit_article' article.slug %}">Edit</a>
                 </div>
                 {% endif %}
-
+                <br>
+                <div class="profile_page_information_category">
+                    {% for category in article.category.all %}
+                        <a href="{{ category.get_absolute_url }}">{{ category.title }}</a>
+                    {% endfor %}
+                </div>
                 <br><br>
 
-                {{ article.content|safe|truncatechars:100 }}
+                {{ article.content|truncatechars:100 }}
 
                 <div class="profile_page_information_read-more">
                     <a href="{{ article.get_absolute_url }}">Read More</a>            
                 </div>
                 <div class="profile_page_information_viewing">
-                    Views: {{ article.viewing }}
+                    Views: {{ article.total_views }}
                 </div>
             </div>
         {% endfor %}

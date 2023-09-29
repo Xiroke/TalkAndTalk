@@ -68,9 +68,11 @@ def sign_up(request):
             form = UserSignUpForm(request.POST)
             if form.is_valid():
                 form.save()
+                return redirect('sign_in')
         else:
             form = UserSignUpForm()
         return render(request, 'main/sign_up.html', {'form': form})
+    
     else:
         return redirect('profile')
 
@@ -82,11 +84,11 @@ def sign_out(request):
 
 #articles
 def articles(request):
-    articles_model = Article.objects.order_by()
+    articles_model = Article.objects.order_by('-date')
     return render(request, 'main/articles.html', context = {'articles': articles_model})
 
 def articles_category(request, category_slug):
-    articles_model = Article.objects.filter(catgory__slug=category_slug).order_by()
+    articles_model = Article.objects.filter(category__slug=category_slug)
     return render(request, 'main/articles.html', context = {'articles': articles_model})
 
 def article(request, article_slug):
@@ -122,7 +124,7 @@ def create_article(request):
             return redirect('index')
     else:
         form = ArticleForm() 
-        return render(request, 'main/create_edit_article.html', context = {'form': form, 'title': 'Create article'})
+    return render(request, 'main/create_edit_article.html', context = {'form': form, 'title': 'Create article'})
 
 def edit_article(request, article_slug):
     article_object = get_object_or_404(Article, slug=article_slug)
@@ -132,6 +134,7 @@ def edit_article(request, article_slug):
             if form.is_valid():
                 form.save()
                 return redirect('index')
+            
         else:
             form = ArticleForm(instance=article_object)
             return render(request, 'main/create_edit_article.html', context = {'form': form, 'title': 'Edit article'})

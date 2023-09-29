@@ -38,7 +38,7 @@ class User(AbstractBaseUser):
     is_staff = models.BooleanField(verbose_name='staff', default=False)
     is_superuser = models.BooleanField(verbose_name='superuser', default=False)
     avatar = models.ImageField(verbose_name='avatar', upload_to='avatar/%Y-%m-%d/', blank=True, default='avatar.svg')
-    
+    can_manage_article = models.BooleanField(verbose_name='can manage article', default=False)
 
     objects = UserManager()
 
@@ -75,7 +75,8 @@ class Category(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('articles', kwargs={'category_slug': self.catgory.slug})
+        return reverse('articles', kwargs={'category_slug': self.slug})
+    
     
 class Article(models.Model):
     title = models.CharField(verbose_name='title', max_length=255, blank=True)
@@ -85,7 +86,6 @@ class Article(models.Model):
     author = models.ForeignKey(User, verbose_name='author', on_delete=models.CASCADE)
     slug = models.SlugField(verbose_name='slug', unique=True, blank=False)
     category = models.ManyToManyField(Category, verbose_name='category', blank=True)
-
     def __str__(self):
         return self.title
     
@@ -99,6 +99,7 @@ class Article(models.Model):
     def total_views(self):
         return self.views.count()
 
+    
 class Comment(models.Model):
     text = models.TextField(verbose_name='text')
     date = models.DateTimeField(verbose_name='date', auto_now_add=True)
